@@ -1,0 +1,22 @@
+﻿<html>
+<head>
+</head>
+<body>
+
+    <h1>Oturum Süreniz Doldu.. <span id="counter">5</span> saniye içerisinde giriş sayfasına yönlendiriliyorsunuz</h1>
+
+    <script>
+        setInterval(myTimer, 1000);
+        var counter = 5;
+        function myTimer() {
+
+            counter--;
+            document.getElementById("counter").innerHTML = "" + counter;
+
+            if (counter == 0) {
+                window.location.href = "http://localhost:5000/login";
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,128 @@
+﻿@using VTYS_PROJE.Entities.Concrete;
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login</title>
+    <link href="https://fonts.googleapis.com/css?family=Karla:400,700&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.8.95/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+    <link rel="stylesheet" type="text/css" href="~/css/login.css" media="screen" />
+
+    <style>
+
+        .login-card form {
+            max-width: 100% !important;
+        }
+    </style>
+</head>
+
+
+<body>
+    <main class="d-flex align-items-center min-vh-100 py-3 py-md-0">
+        <div class="container">
+            <div class="card login-card">
+                <div class="row no-gutters">
+                    <div class="col-md-12">
+                        <div class="card-body">
+                            <div class="brand-wrapper">
+                                <img src="~/images/logo.png" alt="logo" class="logo">
+                            </div>
+                            <p class="login-card-description">Kayıt Ol</p>
+
+                            <div class="tab-content p-4 p-md-5" id="v-pills-tabContent">
+                                <div class="tab-pane fade show active" id="account" role="tabpanel" aria-labelledby="account-tab">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Ad</label>
+                                                <input type="text" class="form-control" id="name" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Soyad</label>
+                                                <input type="text" class="form-control" id="surname" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Kullanıcı adı</label>
+                                                <input type="text" class="form-control" id="user_name" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Şifre</label>
+                                                <input type="password" class="form-control" id="password" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Email</label>
+                                                <input type="email" class="form-control" id="email" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>İl</label>
+                                                <input class="form-control" list="cityOptions" id="cityOptionsList"
+                                                       placeholder="İl" style="margin-top: 10px;" autocomplete="off" required>
+                                                <datalist id="cityOptions">
+                                                    @foreach (City item in ViewBag.CityList)
+                                                    {
+                                                        <option value="@item.city_name" data-val="@item.id"></option>
+                                                    }
+                                                </datalist>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>İlçe</label>
+                                                <input class="form-control" list="districtOptions" id="districtOptionsList"
+                                                       placeholder="İlçe" style="margin-top: 10px;" autocomplete="off" required>
+                                                <datalist id="districtOptions">
+                                                    @{ 
+                                                        List<Address> address = (List<Address>)ViewBag.AddressList;
+                                                    }
+
+                                                    @foreach (District item in ViewBag.DistrictList)
+                                                    {
+                                                        int id = address.Where(x => x.district_id == item.id).FirstOrDefault().city_id;
+
+                                                        <option data-val="@item.id" data-city_id="@id" data-name="@item.district_name"></option>
+                                                    }
+                                                </datalist>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Telefon Numarası</label>
+                                                <input type="text" class="form-control" id="phone_number" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <button class="btn btn-primary" id="btn-sign-in">Hesap Oluştur</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="login-card-footer-text">Hali hazırda hesabınız var mı? <a class="text-reset" href="login">Giriş Yapın</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="~/js/account.js"></script>
+</body>
+
+</html>
